@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .gallery-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+      scrollbar-width: none; /* For Firefox */
+    }
+    .gallery-container::-webkit-scrollbar {
+      display: none; /* For Chrome, Safari, and Edge */
+    }
+    .gallery {
+      display: flex;
+      gap: 24px; /* Increased space between images */
+      transition: transform 0.3s ease-in-out;
+      scroll-snap-align: start;
+    }
+    .gallery img {
+      filter: grayscale(100%);
+      transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+      border-radius: 24px;
+      width: 150px;
+      height: 150px;
+    }
+    .gallery img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.1);
+    }
+
+    /* Hover Effect */
+    .tab-button.active {
+      background-color: #4B5563; /* Active tab background */
+    }
+
+    /* Colorful Scrollbars for First Card */
+    .overflow-y-auto {
+      scrollbar-width: thin;
+      scrollbar-color: #6B7280 #1F2937; /* Color of thumb and track */
+    }
+    .overflow-y-auto::-webkit-scrollbar {
+      width: 8px; /* Width of the scrollbar */
+    }
+    .overflow-y-auto::-webkit-scrollbar-track {
+      background: #1F2937; /* Track color */
+    }
+    .overflow-y-auto::-webkit-scrollbar-thumb {
+      background: #6B7280; /* Thumb color */
+      border-radius: 8px;
+    }
+    .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+      background: #4B5563; /* Thumb color on hover */
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+  <div class="flex min-h-screen">
+    <!-- Left Half (Empty) -->
+    <div class="w-1/2"></div>
+
+    <!-- Right Half (Cards in vertical order) -->
+    <div class="w-1/2 flex flex-col items-center justify-start mt-32 pr-20"> <!-- Adjusted margin-top to 32 -->
+      <!-- First Card with Tabs -->
+      <div class="bg-gray-800 rounded-2xl shadow-lg w-full max-w-4xl p-8 mb-8"> <!-- Added margin-bottom for spacing between cards -->
+        <div class="bg-black rounded-2xl p-5 mb-6 flex items-center justify-between"> <!-- Rounded header -->
+          <i class="fas fa-question-circle text-gray-400"></i>
+          <div class="flex space-x-3">
+            <button class="tab-button bg-black text-white px-5 py-2 rounded-full hover:bg-gray-700 active" data-tab="about">About Me</button>
+            <button class="tab-button bg-black text-white px-5 py-2 rounded-full hover:bg-gray-700" data-tab="experience">Experience</button>
+            <button class="tab-button bg-black text-white px-5 py-2 rounded-full hover:bg-gray-700" data-tab="recommended">Recommended</button>
+          </div>
+          <i class="fas fa-th text-gray-400"></i>
+        </div>
+
+        <!-- About Me Tab Content -->
+        <div class="tab-content active" id="about">
+          <div class="overflow-y-auto h-56 pr-2">
+            <p class="text-gray-200 text-lg mb-3">
+              I am a passionate and driven software engineering student with a keen interest in web development, blockchain technology, and AI-powered solutions. I have a hands-on approach to learning and love turning ideas into functional projects. My skill set includes HTML, CSS, JavaScript, PHP, Python, and experience in blockchain integration and smart contracts. I enjoy tackling complex challenges and constantly seek to learn new technologies that can solve real-world problems. My goal is to build innovative, user-centric solutions that make a difference.
+            </p>
+          </div>
+        </div>
+
+        <!-- Experience Tab Content -->
+        <div class="tab-content" id="experience">
+          <div class="overflow-y-auto h-56 pr-2">
+            <p class="text-white font-bold text-lg mb-2">Web Development Intern at CodeAlpha (August 2024 - November 2024)</p>
+            <p class="text-gray-200 text-lg mb-2">
+              Developed responsive web applications, integrated with MetaMask for crypto wallet connection, and collaborated on projects using Vercel. Created user-friendly interfaces and ensured seamless functionality.
+            </p>
+            <p class="text-white font-bold text-lg mb-2">Graphic Designing Intern (Ongoing)</p>
+            <p class="text-gray-200 text-lg mb-2">
+              Designed visually appealing graphics, logos, and templates using Canva and Adobe Photoshop for various clients and internal projects.
+            </p>
+            <p class="text-white font-bold text-lg mb-2">Teaching Assistant (2022 - 2024)</p>
+            <p class="text-gray-200 text-lg mb-4">
+              Provided guidance to students in web development, Python programming, and UI/UX design. Assisted in coursework and helped students improve their project-building skills.
+            </p>
+          </div>
+        </div>
+
+        <!-- Recommendations Tab Content -->
+        <div class="tab-content" id="recommended">
+          <div class="overflow-y-auto h-56 pr-2">
+            <p class="text-white font-bold text-lg mb-2">Recommendations:</p>
+            <p class="text-gray-200 text-lg mb-2">
+              I would recommend the following products based on my experience with them:
+            </p>
+            <p class="text-white font-bold text-lg mb-2">Salesforce CRM</p>
+            <p class="text-gray-200 text-lg mb-2">
+              Salesforce CRM is an all-in-one customer relationship management solution that helps businesses manage their sales, marketing, and customer service activities effectively.
+            </p>
+            <p class="text-white font-bold text-lg mb-2">HubSpot CRM</p>
+            <p class="text-gray-200 text-lg mb-2">
+              HubSpot CRM is a free customer relationship management software that assists businesses in handling marketing campaigns, sales management, and customer interactions seamlessly.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Card with Gallery -->
+      <div class="bg-gray-800 rounded-2xl shadow-lg w-full max-w-4xl p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-question-circle text-gray-400"></i>
+            <button class="bg-black text-white px-5 py-2 rounded-full">Gallery</button>
+          </div>
+          <div class="flex items-center space-x-2">
+            <label class="bg-black text-white px-5 py-2 rounded-full flex items-center space-x-2 hover:bg-gray-700 cursor-pointer" for="file-input">
+              <i class="fas fa-plus"></i>
+              <span>Add Image</span>
+            </label>
+            <input class="hidden" id="file-input" onchange="handleFileUpload(event)" type="file"/>
+            <div class="bg-black text-white p-3 rounded-full cursor-pointer" onclick="scrollGallery(-1)">
+              <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="bg-black text-white p-3 rounded-full cursor-pointer" onclick="scrollGallery(1)">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-container">
+          <div class="gallery" id="gallery">
+            <!-- Existing Images -->
+            <img alt="Image of ocean waves" class="rounded-lg" height="150" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgEaLJW2qvDk_2O5llQDCHJO3XlYthhU3INQ&s" width="150"/>
+            <img alt="Image of a mountain" class="rounded-lg" height="150" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq2h33u0NtjJ6YFuJlR7PGftmYclc3ZQ6ZJQ&s" width="150"/>
+            <img alt="Image of a city skyline" class="rounded-lg" height="150" src="https://clipart-library.com/images/gTe5a49xc.jpg" width="150"/>
+            <img alt="Image of a forest" class="rounded-lg" height="150" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0CErX6q9aA9ortfvFxLZRgh3UkqAlFTrBVg&s" width="150"/>
+            <img alt="Image of a desert" class="rounded-lg" height="150" src="https://geographical.co.uk/wp-content/uploads/Saharasunset-2.jpg" width="150"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function scrollGallery(direction) {
+      const gallery = document.getElementById('gallery');
+      const scrollAmount = 200; // Adjust scroll amount as needed
+      gallery.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const imgElement = document.createElement('img');
+          imgElement.src = e.target.result;
+          imgElement.className = 'rounded-lg';
+          imgElement.style.width = '150px';
+          imgElement.style.height = '150px';
+          imgElement.style.filter = 'grayscale(100%)';
+          imgElement.style.transition = 'filter 0.3s ease-in-out, transform 0.3s ease-in-out';
+          imgElement.style.borderRadius = '24px';
+
+          imgElement.onmouseover = function() {
+            this.style.filter = 'grayscale(0%)';
+            this.style.transform = 'scale(1.1)';
+          };
+
+          imgElement.onmouseout = function() {
+            this.style.filter = 'grayscale(100%)';
+            this.style.transform = 'scale(1)';
+          };
+
+          document.getElementById('gallery').appendChild(imgElement);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Tab Switching
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.toggle('active', content.id === tabId);
+        });
+        document.querySelectorAll('.tab-button').forEach(btn => {
+          btn.classList.toggle('active', btn === button);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
